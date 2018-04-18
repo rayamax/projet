@@ -21,26 +21,26 @@
     <div class="container">
       <?php
       include("header.php");
-      while ($donnees = $req_billet_une->fetch())
+      while ($data = $post->fetch())
       {
         ?>
         <div class="jumbotron p-3 p-md-5 text-white rounded bg-dark">
           <div class="col-md-6 px-0">
-            <h1 class="display-4 font-italic"><?= htmlspecialchars($donnees['title']); ?></h1>
+            <h1 class="display-4 font-italic"><?= htmlspecialchars($data['title']); ?></h1>
             <p class="lead my-3"><?php
       // On affiche le contenu du billet
-            echo nl2br($donnees['content']);
+            echo nl2br($data['content']);
             ?></p>
-            <p class="lead mb-0"><a href="commentaires.php?billet=<?php echo $donnees['id']; ?>" class="text-white font-weight-bold continued">Continuer à lire ...</a></p>
+            <p class="lead mb-0"><a href="commentaires.php?billet=<?php echo $data['id']; ?>" class="text-white font-weight-bold continued">Continuer à lire ...</a></p>
           </div>
         </div>
       <?php
       } // Fin de la boucle des billets
-      $req_billet_une->closeCursor();
+      $post->closeCursor();
       ?>
 
       <?php
-        while ($donnees_billet = $req_billet->fetch())
+        while ($data = $posts->fetch())
       {
       ?>
       <div class="row mb-2">
@@ -48,22 +48,22 @@
           <div class="card flex-md-row mb-4 box-shadow h-md-250">
             <div class="card-body d-flex flex-column align-items-start">
               <h3 class="mb-0">
-                <strong class="d-inline-block mb-2 text-primary"><?php echo htmlspecialchars($donnees_billet['title']); ?>
+                <strong class="d-inline-block mb-2 text-primary"><?php echo htmlspecialchars($data['title']); ?>
                 </strong>
               </h3>
               <p class="card-text mb-auto"><?php
         // On affiche le contenu du billet
-                  echo nl2br(htmlspecialchars($donnees_billet['content']));
+                  echo nl2br(htmlspecialchars($data['content']));
                   ?>                    
               </p>
-              <p class="lead mb-0"><a href="commentaires.php?billet=<?php echo $donnees_billet['id']; ?>" class="text-white font-weight-bold continued">Continuer à lire ...</a></p>
+              <p class="lead mb-0"><a href="commentaires.php?billet=<?php echo $data['id']; ?>" class="text-white font-weight-bold continued">Continuer à lire ...</a></p>
             </div>
           </div>
         </div>
       </div>
       <?php
       } // Fin de la boucle des billets
-      $req_billet->closeCursor();
+      $posts->closeCursor();
       ?>
       
     </div>

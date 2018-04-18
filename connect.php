@@ -10,7 +10,7 @@
     <body>
         <div class="container">
 <?php
-      require ("modele.php");
+      require ("model.php");
       include("header.php");
 // Récupération du billet
       if (!$_COOKIE) { ?>

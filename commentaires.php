@@ -13,10 +13,22 @@
         <div class="container">
 <?php
       include("header.php");
-      require('modele.php');
-      $req = getBillet();
-      ?><div class="container_commentaires">
-        <form class="form_comment" action="commentaire_post.php?billet=<?php echo $_GET["billet"]; ?>"" method="post">
+      require('model.php');
+      $post = getPost($billet);?>
+      <div class="billet">
+        <h3>
+            <?php echo nl2br($data['title']); ?>
+            <em class="date">le <?php echo $data['date_creation_fr']; ?></em>
+        </h3>
+        
+        <p>
+        <?php
+        echo nl2br($data['content']);
+        ?>
+        </p>
+    </div>
+      <div class="container_commentaires">
+        <form class="form_comment" action="post.php?billet=<?php echo $_GET["billet"]; ?>"" method="post">
         <p>
         <label for="pseudo">Pseudo</label> : <input type="text" name="pseudo" id="pseudo" /><br />
         <label for="message">Commentaire</label> :  <textarea rows="4" cols="100" id="text" name="text" >

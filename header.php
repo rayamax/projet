@@ -31,7 +31,7 @@ $req_billet_titre = $bdd->query('SELECT id, title, content, DATE_FORMAT(creation
         while ($donnees_titre = $req_billet_titre->fetch())
       {
       ?>
-      <a class="p-2 text-muted" href="commentaires.php?billet=<?php echo $donnees_titre['id'];  ?>"><?php echo $donnees_titre["title"]?></a>
+      <a class="p-2 text-muted" href="post.php?billet=<?php echo $donnees_titre['id'];  ?>"><?php echo $donnees_titre["title"]?></a>
       <?php
       } // Fin de la boucle des titre billets
       $req_billet_titre->closeCursor();
