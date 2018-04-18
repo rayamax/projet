@@ -11,18 +11,18 @@
         
     <body>
         <div class="container">
-        <?php 
-      include("header.php");
-      require("model.php");
-      $post = getPost($_GET['billet']);
+          <?php 
+          include("header.php");
+          require("model.php");
+          $post = getPost($_GET['billet']);
 
-// Récupération du billet
-?>
-<form action="edit_post_submit.php?billet=<?php echo $post['id'];?>" method="post">
-        <p>
-        <label for="title">Titre</label> : <textarea type="text" name="title" id="title" ><?= htmlspecialchars($post['title']) ?></textarea><br />
-        <textarea rows="4" cols="100" id="text" name="text" >
-      <?= nl2br(htmlspecialchars($post['content'])) ?>
+          // Récupération du billet
+          ?>
+          <form action="edit_post_submit.php?billet=<?php echo $post['id'];?>" method="post">
+          <p>
+            <label for="title">Titre</label> : <textarea type="text" name="title" id="title" ><?= htmlspecialchars($post['title']) ?></textarea><br />
+            <textarea rows="4" cols="100" id="text" name="text" >
+            <?= nl2br(htmlspecialchars($post['content'])) ?>
         </textarea>
         <input type="submit" value="Envoyer" />
     </p>
