@@ -12,14 +12,14 @@ if ($_POST['title']!='' AND $_POST['text']!='')
 	}
 
 	// // Insertion du message à l'aide d'une requête préparée
-	$req = $bdd->prepare('UPDATE  billet (title, content) VALUES(?, ?) WHERE id = ?');
+	$req = $bdd->prepare('UPDATE  billet SET title = ?, content = ? WHERE id = ?');
 	
-	$req->execute(array($_POST['title'], $_POST['text'],$_GET['billet']));
+	$req->execute(array($_POST['title'],$_POST['text'],$_GET['billet']));
 
 
 
 }
 // Redirection du visiteur vers la page du minichat
-$referer = isset($_SERVER['HTTP_REFERER']) ? $_SERVER['HTTP_REFERER'] : 'index.php';
+$referer = isset($_SERVER['HTTP_REFERER']) ? $_SERVER['HTTP_REFERER'] : 'post.php?billet=$_GET["billet"]';
 header('Location: ' . $referer);
 ?>

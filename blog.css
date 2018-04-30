@@ -3,7 +3,8 @@
     box-sizing: border-box;
 }
 body {
-  padding-bottom: 10px;
+  padding-bottom: 30px;
+  margin-bottom: 10px;
 }
 .blog-header {
   line-height: 1;
@@ -146,7 +147,7 @@ max-width: 80%;
 }
 .comment {
   border: 1px;
-  background-color: rgba(247, 212, 170, 0.4);
+  background-color: rgba(247, 212, 170, 0.7);
   border-radius: 10px;
   margin: 5px;
   padding: 5px;
@@ -256,4 +257,7 @@ ul.list_footer li {
   background-color: rgba(0,0,0,0.3);
   border-radius: 10px;
 
+}
+
+.text_index {
 }

@@ -26,12 +26,12 @@
         ?>
         <div class="jumbotron p-3 p-md-5 text-white rounded bg-dark">
           <div class="col-md-6 px-0">
-            <h1 class="display-4 font-italic"><?= htmlspecialchars($data['title']); ?></h1>
-            <p class="lead my-3"><?php
+            <h1 class="display-4 font-italic"><?= $data['title']; ?></h1>
+            <p class="lead my-3 text_index"><?php
       // On affiche le contenu du billet
             echo nl2br($data['content']);
             ?></p>
-            <p class="lead mb-0"><a href="commentaires.php?billet=<?php echo $data['id']; ?>" class="text-white font-weight-bold continued">Continuer à lire ...</a></p>
+            <p class="lead mb-0"><a href="post.php?billet=<?php echo $data['id']; ?>" class="text-white font-weight-bold continued">Continuer à lire ...</a></p>
           </div>
         </div>
       <?php
@@ -48,15 +48,15 @@
           <div class="card flex-md-row mb-4 box-shadow h-md-250">
             <div class="card-body d-flex flex-column align-items-start">
               <h3 class="mb-0">
-                <strong class="d-inline-block mb-2 text-primary"><?php echo htmlspecialchars($data['title']); ?>
+                <strong class="d-inline-block mb-2 text-primary"><?php echo $data['title']; ?>
                 </strong>
               </h3>
-              <p class="card-text mb-auto"><?php
+              <p class="card-text mb-auto text_index"><?php
         // On affiche le contenu du billet
-                  echo nl2br(htmlspecialchars($data['content']));
+                  echo nl2br($data['content']);
                   ?>                    
               </p>
-              <p class="lead mb-0"><a href="commentaires.php?billet=<?php echo $data['id']; ?>" class="text-white font-weight-bold continued">Continuer à lire ...</a></p>
+              <p class="lead mb-0"><a href="post.php?billet=<?php echo $data['id']; ?>" class="text-white font-weight-bold continued">Continuer à lire ...</a></p>
             </div>
           </div>
         </div>

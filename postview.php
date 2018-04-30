@@ -16,21 +16,22 @@
                 <p><a href="index.php">Retour à la liste des billets</a></p>
                 <div class="news">
                     <h3>
-                        <?= htmlspecialchars($post['title']) ?>
+                        <?= $post['title'] ?>
                         <em class="date">le <?= $post['date_creation_fr'] ?></em>
                     </h3>
                     
                     <p>
-                        <?= nl2br(htmlspecialchars($post['content'])) ?>
+                        <?= nl2br($post['content']) ?>
                     </p>
                 </div>
             </div>
             <div class="container_commentaires">
-                <form class="form_comment" action="post.php?billet=<?php echo $_GET["billet"]; ?>"" method="post">
+                <form class="form_comment" action="commentaire_post.php?billet=<?php echo $_GET["billet"]; ?>"" method="post">
                     <p>
                         <label for="pseudo">Pseudo</label> : <input type="text" name="pseudo" id="pseudo" /><br />
-                        <label for="message">Commentaire</label> :  <textarea rows="4" cols="100" id="text" name="text" >
-                            Laissez place à votre imagination ...
+                        <label for="message">Commentaire</label> :  
+                            <input type="text" name="text" id="text" /><br />
+                            Commentaire
                         </textarea>
                         <input type="submit" value="Envoyer" />
                     </p>
