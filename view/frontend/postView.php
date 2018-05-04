@@ -1,23 +1,12 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="utf-8" />
-        <title>Mon blog</title>
-        <link href="blog.css" rel="stylesheet" /> 
-        <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
-        <script src="https://cloud.tinymce.com/stable/tinymce.min.js"></script>
-        <script>tinymce.init({ selector:'textarea' });</script>
-    </head>
-        
-    <body>
+<?php $title = $post['title']; ?>
+<?php ob_start(); ?>
         <div class="container">
-            <?php include("header.php"); ?>
             <div class="billet">
                 <p><a href="index.php">Retour à la liste des billets</a></p>
                 <div class="news">
                     <h3>
                         <?= htmlspecialchars($post['title']) ?>
-                        <em class="date">le <?= $post['date_creation_fr'] ?></em>
+                        <em class="date">le <?= $post['creation_date_fr'] ?></em>
                     </h3>
                     
                     <p>
@@ -26,12 +15,12 @@
                 </div>
             </div>
             <div class="container_commentaires">
-                <form class="form_comment" action="post.php?billet=<?php echo $_GET["billet"]; ?>"" method="post">
+                <form action="index.php?action=addComment&amp;id=<?= $post['id'] ?>" method="post">
+
                     <p>
-                        <label for="pseudo">Pseudo</label> : <input type="text" name="pseudo" id="pseudo" /><br />
-                        <label for="message">Commentaire</label> :  <textarea rows="4" cols="100" id="text" name="text" >
-                            Laissez place à votre imagination ...
-                        </textarea>
+                        <label for="author">Pseudo</label> :<br/> <input type="text" name="author" id="author" /><br/>
+                        <label for="comment">Commentaire :</label><br/><textarea rows="4" cols="50" id="comment" name="comment" >Laissez place à votre imagination ...
+                        </textarea><br/>
                         <input type="submit" value="Envoyer" />
                     </p>
                 </form>
@@ -46,10 +35,10 @@
                                     <?php echo htmlspecialchars($data['author']); ?>
                                 </strong>
                                 <div class="date">
-                                     le <?php echo $data['date_commentaire']; ?>
+                                     le <?php echo $data['comment_date_fr']; ?>
                                 </div>
                             </div>
-                            <a href="report_comment.php?comment=<?php echo $data['id']; ?>"> Signaler
+                            <a href="index.php?action=report&comment=<?php echo $data['id']; ?>"> Signaler
                             </a>
                         </div>
                         <p>
@@ -59,7 +48,6 @@
                     <?php } ?>
                 </div>
             </div>
-            <?php include("footer.php"); ?>
         </div> 
-    </body>
-</html>
+          <?php $content = ob_get_clean(); ?>
+  <?php require('template.php'); ?>

@@ -20,20 +20,20 @@
 
 
 	}
-	function getPost($id){
+	function getPost($billet){
 		$db = dbConnect();
 
 		$req = $db->prepare('SELECT id, title, content, DATE_FORMAT(creation_date, \'%d/%m/%Y à %Hh%imin%ss\') AS date_creation_fr FROM billet WHERE id = ?');
-		$req->execute(array($id));
+		$req->execute(array($billet));
 		$post = $req->fetch();
 		return $post;
 	}
 
-	function getComments($id){
+	function getComments($billet){
 		// Récupération des commentaires
 		$db = dbConnect();
 		$comments = $db->prepare('SELECT id, author, comment, DATE_FORMAT(comment_date, \'%d/%m/%Y à %Hh%imin%ss\') AS date_commentaire FROM comment WHERE post_id = ? AND approved = 1 ORDER BY comment_date');
-		$comments->execute(array($id));
+		$comments->execute(array($billet));
 		return $comments;
 	}
 
@@ -44,7 +44,7 @@
         while ($donnees_titles = $req_titles->fetch())
       {
       ?>
-      	<p><a href="index.php?action=post&id=<?php echo $donnees_titles['id'];  ?>"><?php echo $donnees_titles["title"]?></a>
+      	<p><a href="commentaires.php?billet=<?php echo $donnees_titles['id'];  ?>"><?php echo $donnees_titles["title"]?></a>
       	<div class="buttons">
 				<a class="button" href="erase_post.php?billet=<?php echo $donnees_titles['id']; ?>">Effacer</a>
 				<a class="button" href="edit_post.php?billet=<?php echo $donnees_titles['id']; ?>">Modifier</a>
@@ -89,4 +89,13 @@
 	        die('Erreur : '.$e->getMessage());
 	    }
 	}
-?>
+
+
+function postComment($postId, $author, $comment)
+{
+    $db = dbConnect();
+    $comments = $db->prepare('INSERT INTO comment(post_id, author, comment, comment_date) VALUES(?, ?, ?, NOW())');
+    $affectedLines = $comments->execute(array($postId, $author, $comment));
+
+    return $affectedLines;
+}

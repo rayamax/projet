@@ -1,4 +1,4 @@
-<?php $title = 'Mon blog'; ?>
+<?php $title = 'Jean Forteroche'; ?>
 
 <?php ob_start(); ?>
 <h1>Mon super blog !</h1>

@@ -13,7 +13,7 @@ if ($_POST['pseudo']!='' AND $_POST['text']!='')
 
 	// Insertion du message à l'aide d'une requête préparée
 	$req = $bdd->prepare('INSERT INTO comment (post_id, author, comment, comment_date) VALUES(?, ?, ?, NOW())');
-	$req->execute(array($_GET['billet'], $_POST['pseudo'], $_POST['text']));
+	$req->execute(array($_GET['id'], $_POST['pseudo'], $_POST['text']));
 }
 // Redirection du visiteur vers la page du minichat
 $referer = isset($_SERVER['HTTP_REFERER']) ? $_SERVER['HTTP_REFERER'] : 'index.php';
