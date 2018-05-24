@@ -1,16 +1,16 @@
-<?php $title = $post['title']; ?>
+<?php $title = htmlspecialchars($post['title']); ?>
 <?php ob_start(); ?>
         <div class="container">
             <div class="billet">
                 <p><a href="index.php">Retour à la liste des billets</a></p>
                 <div class="news">
                     <h3>
-                        <?= htmlspecialchars($post['title']) ?>
+                        <?= $post['title'] ?>
                         <em class="date">le <?= $post['creation_date_fr'] ?></em>
                     </h3>
                     
                     <p>
-                        <?= nl2br(htmlspecialchars($post['content'])) ?>
+                        <?= nl2br($post['content']) ?>
                     </p>
                 </div>
             </div>
@@ -19,8 +19,8 @@
 
                     <p>
                         <label for="author">Pseudo</label> :<br/> <input type="text" name="author" id="author" /><br/>
-                        <label for="comment">Commentaire :</label><br/><textarea rows="4" cols="50" id="comment" name="comment" >Laissez place à votre imagination ...
-                        </textarea><br/>
+                        <label for="comment">Commentaire :</label><br/><input id="comment" name="comment" >
+                        <br/><br/>
                         <input type="submit" value="Envoyer" />
                     </p>
                 </form>
@@ -32,7 +32,7 @@
                         <div class="head_comment">
                             <div>
                                 <strong>
-                                    <?php echo htmlspecialchars($data['author']); ?>
+                                    <?php echo nl2br(htmlspecialchars($data['author'])); ?>
                                 </strong>
                                 <div class="date">
                                      le <?php echo $data['comment_date_fr']; ?>
@@ -42,7 +42,7 @@
                             </a>
                         </div>
                         <p>
-                            <?php echo nl2br($data['comment']); ?>
+                            <?php echo nl2br(htmlspecialchars($data['comment'])); ?>
                         </p>
                     </div>
                     <?php } ?>

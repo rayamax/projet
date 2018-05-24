@@ -1,17 +1,8 @@
-<?php $title = "Espace Connexion"; ?>
+<?php
+$pseudo = isset($_SESSION['pseudo']) ? $_SESSION['pseudo'] : NULL;
+$title = "Espace Connexion"; ?>
 <?php ob_start(); ?>
 <div class="container">
-<?php if (!$_COOKIE) { ?>
-        <form action="session_connect.php" method="post">
-          <p>
-            <label for="pseudo">Pseudo</label> : <input type="text" name="pseudo" id="pseudo" /><br />
-            <label for="message">Mot de passe</label> :  <input type="password" name="message" id="message" /><br />
-            <input type="submit" value="Envoyer" />
-          </p>
-        </form>
-      <?php
-      } else { ?>
-
       <div id="column comments">
         <h3>
           Commentaires
@@ -21,7 +12,7 @@
 		{
 			?>
 			<div class="comment">
-				<p><strong><?php echo htmlspecialchars($data['author']); ?></strong> le <?php echo $data['date_commentaire']; ?></p>
+				<p><strong><?php echo $data['author']; ?></strong> le <?php echo $data['date_commentaire']; ?></p>
 				<p><?php echo nl2br($data['comment']); ?></p>
 			</div>
 			<div class="buttons">
@@ -38,15 +29,19 @@
         <h3>
           Billets
         </h3>
+        <?php while ($data = $titles->fetch())
+      {
+      ?>
         <p>
-          
+          <a href="index.php?action=post&id=<?php echo $data['id'];  ?>"><?php echo $data["title"]?></a>
+          <div class="buttons">
+            <a class="button" href="index.php?action=deletePost&id=<?php echo $data['id']; ?>">Effacer</a>
+            <a class="button" href="index.php?action=editPost&id=<?php echo $data['id']; ?>">Modifier</a>
+          </div>
         </p>
+      <?php }   $titles->closeCursor(); ?>
       </div>
-      <?php
-      }
-?>
-
 	</div>
-	<?php
-		$content = ob_get_clean(); ?>
-  		<?php require('view/frontend/template.php'); ?>
+<?php
+$content = ob_get_clean(); ?>
+<?php require('view/frontend/template.php'); ?>

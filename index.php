@@ -1,7 +1,8 @@
-<?php
+<?php session_start();
 require('controller/frontend.php');
 require('controller/backend.php');
 try {
+  titles();
   if (isset($_GET['action'])) {
       if ($_GET['action'] == 'listPosts') {
           listPosts();
@@ -28,31 +29,49 @@ try {
           }
       }
       elseif ($_GET['action'] == 'addPost') {
-          if (!empty($_POST['title']) && !empty($_POST['text'])) {
-              addComment($_GET['id'], $_POST['author'], $_POST['comment']);
-          }
-          else {
-              throw new Exception('Erreur : tous les champs ne sont pas remplis !');
-          }
+          addPost();
+      }
+      elseif ($_GET['action'] == 'addPostSubmit') {
+        if (!empty($_POST['title']) && !empty($_POST['text'])) {
+                  addPostSubmit($_POST['title'],$_POST['paragraphe'],$_POST['text']);
+              }
+              else {
+                  throw new Exception('Erreur : tous les champs ne sont pas remplis !');
+              }
       }
       elseif ($_GET['action'] == 'editPost') {
-          if (!empty($_POST['title']) && !empty($_POST['text'])) {
-              addComment($_GET['id'], $_POST['author'], $_POST['comment']);
-          }
-          else {
-              throw new Exception('Erreur : tous les champs ne sont pas remplis !');
-          }
+        if(isset($_GET['id']) && $_GET['id'] > 0){
+              editPost();
+        }
+      }
+      elseif ($_GET['action'] == 'editPostSubmit') {
+        if (!empty($_POST['title']) && !empty($_POST['text'])) {
+                  editPostSubmit($_POST['title'],$_POST['paragraphe'],$_POST['text'],$_GET['id']);
+              }
+              else {
+                  throw new Exception('Erreur : tous les champs ne sont pas remplis !');
+              }
       }
       elseif ($_GET['action'] == 'connect'){
-        if ($_COOKIE) { 
+        if($_SESSION){
+          $pseudo = $_SESSION['pseudo'];
+          if ($pseudo == 'admin') { 
             moderation();
+          }
+          else {
+            connect();
+          }
         }
         else {
           connect();
         }
       }
       elseif ($_GET['action'] == 'moderation') {
-          moderation();
+        moderation();
+      }
+      elseif ($_GET['action'] == 'disconnect') {
+          disconnect();
+          header('Location: index.php?action=moderation');
       }
       elseif ($_GET['action'] == 'report') {
           report($_GET['comment']);
@@ -62,6 +81,9 @@ try {
       }
       elseif ($_GET['action'] == 'delete') {
         delete_comment();
+      }
+      elseif ($_GET['action'] == 'deletePost') {
+        deletePost();
       }
   }
   else {

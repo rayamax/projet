@@ -1,10 +1,17 @@
-<?php  
+<?php
 require_once ('model/Moderation.php');
+require_once('model/PostManager.php');
 
 function moderation(){
-	$moderation = new Moderation();
-	$view = $moderation->view();
-	require("view/backend/moderationView.php");
+  if($_SESSION){
+    $pseudo = $_SESSION['pseudo'];
+    if ($pseudo == 'admin') {
+	    $moderation = new Moderation();
+	    $view = $moderation->view();
+      $titles = $moderation->getTitles();
+	    require("view/backend/moderationView.php");
+    }
+  }
 }
 
 function approved(){
@@ -18,35 +25,94 @@ function report($comment){
         throw new Exception('Impossible d\'effacer le commentaire !');
     }
     else {
-         $referer = isset($_SERVER['HTTP_REFERER']) ? $_SERVER['HTTP_REFERER'] : 'index.php';
-header('Location: ' . $referer);
+      header('Location: index.php?action=moderation');
     }
 }
 function delete_comment(){
-	$moderation = new Moderation();
-	$delete = $moderation->delete_comment();
+  if($_SESSION){
+    $pseudo = $_SESSION['pseudo'];
+    if ($pseudo == 'admin') {
+      $moderation = new Moderation();
+      $delete = $moderation->delete_comment();
+      header('Location: chevauxm/projet4/index.php?action=moderation');
+    }
+  }
+}
+
+function titles(){
+  $moderation = new Moderation();
+  $titles = $moderation->getTitles();
+  require("view/frontend/header.php");
 }
 
 function connect(){
-	$moderation = new Moderation();
-	$connect = $moderation->connect();
-	while ($connect = $connect->fetch())
-      {
-      	 if($connect['pseudo'] == $_POST['pseudo']) {
-      	 	echo "Bonjour" . $connect['pseudo'];
-      	 	if($connect['password']==$_POST['message']){
-      	 		echo "Comment allez vous ?";
-      	 		setcookie('connexion', $_POST['pseudo'], time() + 365*24*3600, null, null, false, true);
-      	 	} else {
-      	 		echo "Mauvais mot de passe";
-      	 	}
-      	 } else {
-      	 	echo "Pseudo Inconnu";
-      	 }
+  if ($_POST) {
+    $moderation = new Moderation();
+    $connect = $moderation->connect();
+    require("view/backend/connectView.php");
+    header("Refresh:0");
+  } else {
+    require("view/backend/connectView.php");
+  }
+	
+}
+function disconnect(){
+  session_destroy();
+	header('Location: index.php');
+}
+
+function addPost(){
+  if($_SESSION){
+    $pseudo = $_SESSION['pseudo'];
+    if ($pseudo == 'admin') {
+      require("view/backend/addPostView.php");
     }
-   function disconnect(){
-   		setcookie("connexion","admin",1);
-		$referer = isset($_SERVER['HTTP_REFERER']) ? $_SERVER['HTTP_REFERER'] : 'index.php';
-		header('Location: ' . $referer);
-   }
+  }
+}
+function addPostSubmit($title,$paragraphe,$text) {
+  if($_SESSION){
+    $pseudo = $_SESSION['pseudo'];
+    if ($pseudo == 'admin') {
+      $moderation = new Moderation();
+      $req = $moderation->addPostSubmit($title,$paragraphe,$text);
+      if ($req === false) {
+        throw new Exception('Impossible d\'ajouter le commentaire !');
+      }
+      else {
+        header('Location: index.php?action=addPost');
+      }
+    header('Location: index.php');
+    }
+  }
+  
+}
+function editPost(){
+  if($_SESSION){
+    $pseudo = $_SESSION['pseudo'];
+    if ($pseudo == 'admin') {
+      $postManager = new PostManager();
+      $post = $postManager->getPost($_GET['id']);
+      require('view/backend/editPostView.php');
+    }
+  }
+}
+function editPostSubmit($title,$paragraphe,$text,$id){
+  if($_SESSION){
+    $pseudo = $_SESSION['pseudo'];
+    if ($pseudo == 'admin') {
+      $moderation = new Moderation();
+      $req = $moderation->editPostSubmit($title,$paragraphe,$text,$id);
+      header('Location: index.php');
+    }
+  }  
+}
+function deletePost(){
+  if($_SESSION){
+    $pseudo = $_SESSION['pseudo'];
+    if ($pseudo == 'admin') {
+      $moderation = new Moderation();
+      $req = $moderation->deletePost();
+      header('Location: index.php');
+    }
+  }
 }
