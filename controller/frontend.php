@@ -3,17 +3,21 @@
 // Chargement des classes
 require_once('model/PostManager.php');
 require_once('model/CommentManager.php');
+require_once('model/Moderation.php');
 
 function listPosts()
 {
     $postManager = new PostManager(); // Création d'un objet
     $posts = $postManager->getPosts(); // Appel d'une fonction de cet objet
+    $moderation = new Moderation();
+    $header = $moderation->getTitles();
 
     require('view/frontend/listPostsView.php');
 }
 
 function post()
-{
+{   
+    menu();
     $postManager = new PostManager();
     $commentManager = new CommentManager();
 
@@ -33,6 +37,6 @@ function addComment($postId, $author, $comment)
         throw new Exception('Impossible d\'ajouter le commentaire !');
     }
     else {
-        header('Location: index.php?action=post&id=' . $postId);
+        header('Location: http://chevauxm.fr/projet4/index.php?action=post&id=' . $postId);
     }
 }

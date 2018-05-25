@@ -2,7 +2,7 @@
 require('controller/frontend.php');
 require('controller/backend.php');
 try {
-  titles();
+  menu();
   if (isset($_GET['action'])) {
       if ($_GET['action'] == 'listPosts') {
           listPosts();
@@ -33,11 +33,11 @@ try {
       }
       elseif ($_GET['action'] == 'addPostSubmit') {
         if (!empty($_POST['title']) && !empty($_POST['text'])) {
-                  addPostSubmit($_POST['title'],$_POST['paragraphe'],$_POST['text']);
-              }
-              else {
-                  throw new Exception('Erreur : tous les champs ne sont pas remplis !');
-              }
+          addPostSubmit($_POST['title'],$_POST['paragraphe'],$_POST['text']);
+        }
+        else {
+          throw new Exception('Erreur : tous les champs ne sont pas remplis !');
+        }
       }
       elseif ($_GET['action'] == 'editPost') {
         if(isset($_GET['id']) && $_GET['id'] > 0){
@@ -71,7 +71,7 @@ try {
       }
       elseif ($_GET['action'] == 'disconnect') {
           disconnect();
-          header('Location: index.php?action=moderation');
+          header("Location: index.php");
       }
       elseif ($_GET['action'] == 'report') {
           report($_GET['comment']);
@@ -87,7 +87,7 @@ try {
       }
   }
   else {
-      listPosts();
+    listPosts();
   }
 }
 catch(Exception $e) {

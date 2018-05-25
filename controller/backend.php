@@ -25,8 +25,9 @@ function report($comment){
         throw new Exception('Impossible d\'effacer le commentaire !');
     }
     else {
-      header('Location: index.php?action=moderation');
+      header("Location: index.php");
     }
+    header("Location: index.php");
 }
 function delete_comment(){
   if($_SESSION){
@@ -34,23 +35,24 @@ function delete_comment(){
     if ($pseudo == 'admin') {
       $moderation = new Moderation();
       $delete = $moderation->delete_comment();
-      header('Location: chevauxm/projet4/index.php?action=moderation');
+      header('Location: index.php?action=moderation');
     }
   }
 }
 
-function titles(){
+function menu(){
   $moderation = new Moderation();
-  $titles = $moderation->getTitles();
-  require("view/frontend/header.php");
+  $header = $moderation->getTitles();
 }
 
 function connect(){
+  menu();
   if ($_POST) {
     $moderation = new Moderation();
     $connect = $moderation->connect();
     require("view/backend/connectView.php");
     header("Refresh:0");
+    header("index?action=moderation");
   } else {
     require("view/backend/connectView.php");
   }
@@ -75,14 +77,16 @@ function addPostSubmit($title,$paragraphe,$text) {
     if ($pseudo == 'admin') {
       $moderation = new Moderation();
       $req = $moderation->addPostSubmit($title,$paragraphe,$text);
+      header('Location: index.php');
       if ($req === false) {
         throw new Exception('Impossible d\'ajouter le commentaire !');
       }
       else {
-        header('Location: index.php?action=addPost');
+        header('Location: index.php');
       }
-    header('Location: index.php');
+      header('Location: index.php');
     }
+    header('Location: index.php');
   }
   
 }

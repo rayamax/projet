@@ -16,8 +16,8 @@
 <div class="nav-scroller py-1 mb-2">
   <nav class="nav d-flex justify-content-around">
     <a class="p-2 text-muted" href="index.php">Accueil</a>
-    <?php  while ($data = $titles->fetch()) { ?>
+    <?php  while ($data = $header->fetch()) { ?>
     <a class="p-2 text-muted" href="index.php?action=post&id=<?php echo $data['id'];  ?>"><?php echo $data["title"]?></a>
-      <?php } $titles->closeCursor(); ?>
+      <?php } $header->closeCursor(); ?>
   </nav>
 </div>
