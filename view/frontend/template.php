@@ -6,9 +6,9 @@
         <title><?= $title ?></title>
         <meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-		<meta name="description" content="">
-		<meta name="author" content="">
-		<link rel="icon" href="favicon.ico">
+		<meta name="description" content="Blog de Jean Forteroche">
+		<meta name="author" content="Maxime CHEVAUX">
+		<link rel="icon" href="../../public/images/icon.png">
 		<link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
 		<link href="https://fonts.googleapis.com/css?family=Playfair+Display:700,900" rel="stylesheet">
 		<link href="public/css/blog.css" rel="stylesheet"> 

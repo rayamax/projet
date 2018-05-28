@@ -10,4 +10,3 @@ class Manager
         return $db;
     }
 }
-//'mysql:host=localhost;dbname=projet;charset=utf8', 'root',''

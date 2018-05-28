@@ -1,14 +1,13 @@
 <?php
 
-// Chargement des classes
 require_once('model/PostManager.php');
 require_once('model/CommentManager.php');
 require_once('model/Moderation.php');
 
 function listPosts()
 {
-    $postManager = new PostManager(); // Création d'un objet
-    $posts = $postManager->getPosts(); // Appel d'une fonction de cet objet
+    $postManager = new PostManager(); 
+    $posts = $postManager->getPosts();
     $moderation = new Moderation();
     $header = $moderation->getTitles();
 
@@ -17,13 +16,12 @@ function listPosts()
 
 function post()
 {   
-    menu();
+    $moderation = new Moderation();
+    $header = $moderation->getTitles();
     $postManager = new PostManager();
     $commentManager = new CommentManager();
-
     $post = $postManager->getPost($_GET['id']);
     $comments = $commentManager->getComments($_GET['id']);
-
     require('view/frontend/postView.php');
 }
 

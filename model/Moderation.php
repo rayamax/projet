@@ -15,8 +15,6 @@ class Moderation extends Manager {
 		$db = $this->dbConnect();
 		$req = $db->prepare('UPDATE comment SET approved = NULL WHERE id = ? ');
 		$req->execute(array($_GET['comment']));
-	 	$referer = isset($_SERVER['HTTP_REFERER']) ? $_SERVER['HTTP_REFERER'] : 'index.php';
-		header('Location: ' . $referer);
 	}
 
 	public function report($comment)
@@ -32,8 +30,6 @@ class Moderation extends Manager {
 		$db = $this->dbConnect();
 		$req = $db->prepare('DELETE FROM comment WHERE id = ? ');
 		$req->execute(array($_GET['comment']));
-	 	$referer = isset($_SERVER['HTTP_REFERER']) ? $_SERVER['HTTP_REFERER'] : 'index.php';
-		header('Location: ' . $referer);
 	}
 
 	public function connect()
@@ -70,7 +66,8 @@ class Moderation extends Manager {
 		$req->execute(array($title,$paragraphe,$text,$id));
 	}
 
-	public function deletePost(){
+	public function deletePost()
+	{
 		$db = $this->dbConnect();
 		$req = $db->prepare('DELETE FROM billet WHERE id = ? ');
 		$req->execute(array($_GET['id']));
@@ -78,7 +75,5 @@ class Moderation extends Manager {
 		$req = $db->prepare('DELETE FROM comment WHERE post_id = ? ');
 		$req->execute(array($_GET['id']));
 		$req->closeCursor();
-		$referer = isset($_SERVER['HTTP_REFERER']) ? $_SERVER['HTTP_REFERER'] : 'index.php';
-		header('Location: ' . $referer);
 	}
- }
+}

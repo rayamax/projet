@@ -104,12 +104,6 @@ h6 {
 }
 
 
-/*
- * Blog name and description
- */
-
-
-
 .blog-title {
     margin-bottom: 0;
     font-size: 2rem;
@@ -127,9 +121,6 @@ h6 {
     }
 }
 
-
-/* Pagination */
-
 .blog-pagination {
     margin-bottom: 4rem;
 }
@@ -137,11 +128,6 @@ h6 {
 .blog-pagination>.btn {
     border-radius: 2rem;
 }
-
-
-/*
- * Blog posts
- */
 
 .blog-post {
     margin-bottom: 4rem;
@@ -156,11 +142,6 @@ h6 {
     margin-bottom: 1.25rem;
     color: #999;
 }
-
-
-/*
- * Footer
- */
 
 .blog-footer {
     padding: 2.5rem 0;
@@ -305,5 +286,3 @@ ul.list_footer li {
     background-color: rgba(0, 0, 0, 0.3);
     border-radius: 10px;
 }
-
-.text_index {}
